@@ -5,7 +5,7 @@ import pool from "./config/db.js";
 
 
 const app = express();
-const port = process.env.PORT || 8002;
+const port = process.env.PORT || 8001;
 
 //middlewares
 app.use(express.json());

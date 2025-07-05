@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    container_name: sportspro-db
+    environment:
+      POSTGRES_DB: sports
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./server
+    container_name: sportspro-backend
+    env_file:
+      - ./server/.env
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      - db
+
+
