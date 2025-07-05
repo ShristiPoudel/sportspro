@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: postgres
+    image: postgres:14
     container_name: sportspro-db
     environment:
       POSTGRES_DB: sports
@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - ./db_data:/var/lib/postgresql/data
+    networks:
+      - sportspro-net
 
   backend:
     build: ./server
@@ -25,5 +27,9 @@ services:
       - /app/node_modules
     depends_on:
       - db
+    networks:
+      - sportspro-net
 
-
+networks:
+  sportspro-net:
+    driver: bridge
